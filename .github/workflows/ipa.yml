@@ -62,8 +62,8 @@ jobs:
 
       - name: Setup ipatool-py
         run: |
-          git clone -b itunes_server https://github.com/dimitrovdv/ipatool_dev.git
-          pip3 install -r ipatool-py/requirements.txt
+          git clone https://github.com/dimitrovdv/ipatool_dev.git
+          pip3 install -r ipatool_dev/requirements.txt
           mkdir -p ipaDown
         shell: bash
 
@@ -82,16 +82,16 @@ jobs:
           op=${{ github.event.inputs.operation }}
           if [[ "$op" == "lookup" ]]; then
             if [[ "${{ github.event.inputs.appBundleId }}" != "" ]]; then
-              python3 ipatool-py/main.py --json lookup --get-verid -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }}
+              python3 ipatool_dev/main.py --json lookup --get-verid -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }}
             else
-              python3 ipatool-py/main.py --json lookup --get-verid -i ${{ github.event.inputs.appId }} -c ${{ github.event.inputs.appCountry }}
+              python3 ipatool_dev/main.py --json lookup --get-verid -i ${{ github.event.inputs.appId }} -c ${{ github.event.inputs.appCountry }}
             fi
           elif [[ "$op" == historyver* ]]; then
             if [[ "$op" == "historyver" ]]; then
-              python3 ipatool-py/main.py --json lookup -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }} \
+              python3 ipatool_dev/main.py --json lookup -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }} \
                                                 historyver -s http://127.0.0.1:9000
             elif [[ "$op" == "historyver_id" ]]; then
-              python3 ipatool-py/main.py --json historyver -s http://127.0.0.1:9000 --appId ${{ github.event.inputs.id }}
+              python3 ipatool_dev/main.py --json historyver -s http://127.0.0.1:9000 --appId ${{ github.event.inputs.id }}
             fi
           elif [[ "$op" == download* ]]; then
             if [[ "${{ github.event.inputs.appVerId }}" == "" ]]; then
@@ -101,10 +101,10 @@ jobs:
             fi
 
             if [[ "$op" == "download" ]]; then
-              output=$(python3 ipatool-py/main.py --json lookup -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }} \
+              output=$(python3 ipatool_dev/main.py --json lookup -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }} \
                                                 download -o ipaDown -s http://127.0.0.1:9000 $appVerCmd)
             elif [[ "$op" == "download_id" ]]; then
-              output=$(python3 ipatool-py/main.py --json download -o ipaDown -s http://127.0.0.1:9000 --appId ${{ github.event.inputs.id }} $appVerCmd)
+              output=$(python3 ipatool_dev/main.py --json download -o ipaDown -s http://127.0.0.1:9000 --appId ${{ github.event.inputs.id }} $appVerCmd)
             fi
             echo "Got Downloading JSON result: $output"
             echo "::set-output name=needIPARelease::1"
