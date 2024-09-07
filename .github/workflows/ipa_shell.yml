@@ -39,7 +39,7 @@ jobs:
       
       - name: Setup ipatool-py
         run: |
-          git clone https://github.com/NyaMisty/ipatool-py
+          git clone https://github.com/dimitrovdv/ipatool_dev.git
           mkdir -p ipaDown
         shell: bash
 
