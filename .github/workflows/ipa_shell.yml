@@ -44,7 +44,7 @@ jobs:
         shell: bash
 
       - name: Setup iTunes Header Service
-        uses: NyaMisty/actions-iTunes-header@master
+        uses: dimitrovdv/actions-iTunes-header@master
         with:
           apple_id: ${{ github.event.inputs.appleId }}
           apple_id_pwd: ${{ github.event.inputs.appleIdPwd }}
