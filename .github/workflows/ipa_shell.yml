@@ -62,6 +62,6 @@ jobs:
         uses: mxschmitt/action-tmate@v3
       
       - name: "Upload package"
-        uses: NyaMisty/upload-artifact-as-is@master
+        uses: dimitrovdv/upload-artifact-as-is@master
         with:
           path: ipaDown\*
