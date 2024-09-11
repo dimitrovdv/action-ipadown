@@ -57,12 +57,12 @@ jobs:
           echo "::add-mask::$SECRET_VALUE"
         shell: bash
 
-      - name: Set up git repository
-        uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8.0'
+      # - name: Set up git repository
+      #   uses: actions/checkout@v2
+      # - name: Set up Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: '3.8.0'
           
       - name: Setup ipatool-py
         run: |
