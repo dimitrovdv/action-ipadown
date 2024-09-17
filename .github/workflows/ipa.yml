@@ -108,7 +108,7 @@ jobs:
               output=$(python3 ipatool_dev/main.py --json lookup -b ${{ github.event.inputs.appBundleId }} -c ${{ github.event.inputs.appCountry }} \
                                                 download -o ipaDown -s http://127.0.0.1:9000 $appVerCmd --purchase)
             elif [[ "$op" == "download_id" ]]; then
-              output=$(python3 ipatool_dev/main.py --json download -o ipaDown -s http://127.0.0.1:9000 --appId ${{ github.event.inputs.id }} $appVerCmd --purchase)
+              output=$(python3 ipatool_dev/main.py --json download -o ipaDown -s http://127.0.0.1:9000 --appId ${{ github.event.inputs.id }} $appVerCmd)
             fi
             echo "Got Downloading JSON result: $output"
             echo "::set-output name=needIPARelease::1"
