@@ -138,7 +138,7 @@ jobs:
         shell: bash
         
       - name: Telegram Notify
-      - uses: haishanh/actions-telegram-notification@v1
+        uses: haishanh/actions-telegram-notification@v1
         if: ${{ always() }}
         with:
           notification-token: ${{ secrets.NOTIFICATION_TOKEN }}
