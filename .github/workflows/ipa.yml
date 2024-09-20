@@ -136,6 +136,7 @@ jobs:
           (cd ipaDown; find . -name "*.ipa" -size +1879048192b -exec split --bytes=1879048192 --suffix-length=3 --numeric-suffix {} ../ipaDown_split/{}. \;)
           (cd ipaDown; find . -name "*.ipa" -not -size +1879048192b -exec cp -r {} ../ipaDown_split \;)
         shell: bash
+        
       - name: Telegram Notify
       - uses: haishanh/actions-telegram-notification@v1
         if: ${{ always() }}
