@@ -137,14 +137,21 @@ jobs:
           (cd ipaDown; find . -name "*.ipa" -not -size +1879048192b -exec cp -r {} ../ipaDown_split \;)
         shell: bash
         
-      # - name: Telegram Notify
-      #   uses: haishanh/actions-telegram-notification@v1
-      #   if: ${{ always() }}
-      #   with:
-      #     notification-token: ${{ secrets.NOTIFICATION_TOKEN }}
-      #     bot-token: ${{ secrets.TELEGRAM_TOKEN }}
-      #     chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
-      #     job-status: Статус задания ${{ job.status }} с УЗ ${{ github.event.inputs.appleId }}    
+      - name: Telegram Notify
+        uses: andrewscwei/telegram-action@v1
+        with:
+          success: ${{ needs.build.result == 'success' }}
+          cancelled: ${{ needs.build.result == 'cancelled' }}
+          bot-token: ${{ secrets.TELEGRAM_TOKEN }}
+          chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          
+        # uses: haishanh/actions-telegram-notification@v1
+        # if: ${{ always() }}
+        # with:
+        #   notification-token: ${{ secrets.NOTIFICATION_TOKEN }}
+        #   bot-token: ${{ secrets.TELEGRAM_TOKEN }}
+        #   chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
+        #   job-status: Статус задания ${{ job.status }} с УЗ ${{ github.event.inputs.appleId }}    
         
       - name: Pushing to release
         if: ${{ steps.operation.outputs.needIPARelease == 1 }}
