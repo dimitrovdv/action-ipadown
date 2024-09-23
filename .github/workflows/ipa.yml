@@ -136,7 +136,17 @@ jobs:
           (cd ipaDown; find . -name "*.ipa" -size +1879048192b -exec split --bytes=1879048192 --suffix-length=3 --numeric-suffix {} ../ipaDown_split/{}. \;)
           (cd ipaDown; find . -name "*.ipa" -not -size +1879048192b -exec cp -r {} ../ipaDown_split \;)
         shell: bash
-        
+      - name: Telegram Notify
+        env:
+          APPLEID: ${{ inputs.apple_id }}
+          APPLEID_PWD: ${{ inputs.apple_id_pwd }}
+          bot-token: ${{ secrets.TELEGRAM_TOKEN }}
+          # chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          echo Telegram Notify...
+          python3 ipatool_dev/telegram.py %APPLEID% %bot-token%
+        working-directory: ${{ github.action_path }}
+        shell: cmd
       # - name: Telegram Notify
       #   uses: andrewscwei/telegram-action@v1
       #   with:
