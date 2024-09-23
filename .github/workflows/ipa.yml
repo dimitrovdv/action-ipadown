@@ -173,3 +173,16 @@ jobs:
           allowUpdates: true
           removeArtifacts: true
           replacesArtifacts: true
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Send Telegram notification
+        uses: appleboy/telegram-action@master
+        with:
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          message: "Job status: ${{ job.status }}"          
+          
