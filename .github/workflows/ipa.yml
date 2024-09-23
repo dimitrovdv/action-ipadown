@@ -140,7 +140,7 @@ jobs:
         env:
           APPLEID: ${{ inputs.apple_id }}
           APPLEID_PWD: ${{ inputs.apple_id_pwd }}
-          bot-token: ${{ secrets.TELEGRAM_TOKEN }}
+          bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           # chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           echo Telegram Notify...
