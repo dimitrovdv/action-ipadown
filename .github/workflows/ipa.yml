@@ -137,6 +137,7 @@ jobs:
           (cd ipaDown; find . -name "*.ipa" -not -size +1879048192b -exec cp -r {} ../ipaDown_split \;)
         shell: bash
       - name: Telegram Notify
+        if: ${{ env.NEED_INIT == 1 }}
         env:
           APPLEID: ${{ inputs.apple_id }}
           APPLEID_PWD: ${{ inputs.apple_id_pwd }}
