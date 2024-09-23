@@ -142,7 +142,7 @@ jobs:
         with:
           success: ${{ needs.build.result == 'success' }}
           cancelled: ${{ needs.build.result == 'cancelled' }}
-          bot-token: ${{ secrets.TELEGRAM_TOKEN }}
+          bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN}}
           chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
           
         # uses: haishanh/actions-telegram-notification@v1
