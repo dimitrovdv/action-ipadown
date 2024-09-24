@@ -140,13 +140,14 @@ jobs:
         if: ${{ env.NEED_INIT == 1 }}
         env:
           apple_id: ${{ github.event.inputs.appleId }}
-          APPLEID: ${{ inputs.apple_id }}
-          APPLEID_PWD: ${{ inputs.apple_id_pwd }}
-          bot-token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          # chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          bundle_id: ${{ github.event.inputs.appBundleId }}
+          appid: ${{ github.event.inputs.appVerId }}
+
         run: |
           echo Telegram Notify...
           echo apple_id=${{ github.event.inputs.appleId }} >> .env
+          echo bundle_id=${{ github.event.inputs.appBundleId }} >> .env
+          echo appid=${{ github.event.inputs.appVerId }} >> .env
           more .env
           python3 ipatool_dev/telegram.py
         working-directory: ${{ github.action_path }}
