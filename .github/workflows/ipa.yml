@@ -119,6 +119,8 @@ jobs:
             echo "::set-output name=appVer::$(echo "$output" | jq -r '.appVer')"
             echo "::set-output name=appId::$(echo "$output" | jq -r '.appId')"
             echo "::set-output name=appVerId::$(echo "$output" | jq -r '.appVerId')"
+            echo "::set-output name=appName::$(echo "$output" | jq -r '.appName')" >> .env
+            cat .env
           else
             echo "Unknown Operation: $op"
           fi
