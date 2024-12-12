@@ -126,37 +126,37 @@ jobs:
           fi
         shell: bash
         
-      - name: "Upload package"
-        uses: NyaMisty/upload-artifact-as-is@master
-        with:
-          path: ipaDown\*
+      # - name: "Upload package"
+      #   uses: NyaMisty/upload-artifact-as-is@master
+      #   with:
+      #     path: ipaDown\*
 
-      - name: Split ipa
-        if: ${{ steps.operation.outputs.needIPARelease == '1' }}
-        run: |
-          mkdir -p ipaDown_split
-          (cd ipaDown; find . -name "*.ipa" -size +1879048192b -exec split --bytes=1879048192 --suffix-length=3 --numeric-suffix {} ../ipaDown_split/{}. \;)
-          (cd ipaDown; find . -name "*.ipa" -not -size +1879048192b -exec cp -r {} ../ipaDown_split \;)
-        shell: bash
+      # - name: Split ipa
+      #   if: ${{ steps.operation.outputs.needIPARelease == '1' }}
+      #   run: |
+      #     mkdir -p ipaDown_split
+      #     (cd ipaDown; find . -name "*.ipa" -size +1879048192b -exec split --bytes=1879048192 --suffix-length=3 --numeric-suffix {} ../ipaDown_split/{}. \;)
+      #     (cd ipaDown; find . -name "*.ipa" -not -size +1879048192b -exec cp -r {} ../ipaDown_split \;)
+      #   shell: bash
  
-      - name: Pushing to release
-        if: ${{ steps.operation.outputs.needIPARelease == 1 }}
-        uses: ncipollo/release-action@v1
-        with:
-          name: "IPADown: ${{ steps.operation.outputs.appName }} - ${{ steps.operation.outputs.appVer }}"
-          body: >-
-            ${{ format(fromJSON('"appName: {0}\nappBundleId: {1}\nappVer: {2}\nappId: {3}\nappVerId: {4}\n"'), 
-                  steps.operation.outputs.appName, 
-                  steps.operation.outputs.appBundleId, 
-                  steps.operation.outputs.appVer, 
-                  steps.operation.outputs.appId, 
-                  steps.operation.outputs.appVerId
-                ) }}
-          commit: ${{ github.sha }}
-          tag: "${{ steps.operation.outputs.appBundleId }}-${{ steps.operation.outputs.appId }}-${{ steps.operation.outputs.appVerId }}"
-          artifacts: ipaDown_split\*
+      # - name: Pushing to release
+      #   if: ${{ steps.operation.outputs.needIPARelease == 1 }}
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     name: "IPADown: ${{ steps.operation.outputs.appName }} - ${{ steps.operation.outputs.appVer }}"
+      #     body: >-
+      #       ${{ format(fromJSON('"appName: {0}\nappBundleId: {1}\nappVer: {2}\nappId: {3}\nappVerId: {4}\n"'), 
+      #             steps.operation.outputs.appName, 
+      #             steps.operation.outputs.appBundleId, 
+      #             steps.operation.outputs.appVer, 
+      #             steps.operation.outputs.appId, 
+      #             steps.operation.outputs.appVerId
+      #           ) }}
+      #     commit: ${{ github.sha }}
+      #     tag: "${{ steps.operation.outputs.appBundleId }}-${{ steps.operation.outputs.appId }}-${{ steps.operation.outputs.appVerId }}"
+      #     artifacts: ipaDown_split\*
 
-          allowUpdates: true
-          removeArtifacts: true
-          replacesArtifacts: true        
+      #     allowUpdates: true
+      #     removeArtifacts: true
+      #     replacesArtifacts: true        
           
